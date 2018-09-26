@@ -16,16 +16,25 @@ class BotsPage extends React.Component {
     .then(json => this.setState({allBots: json}))
   }
 
-  selectedBot = (bot) => {
-    if(!this.state.botArmy.includes(bot)) {
+  addBotToBotArmy (bot) {
     this.setState({ botArmy: [...this.state.botArmy, bot] })
-    } else {
-      let newArmy = this.state.botArmy
+  }
+  
+  removeBotFromBotArmy (bot) {
+    let newArmy = this.state.botArmy
       let index = this.state.botArmy.indexOf(bot)
       if (index > -1) {
         let newArmy = this.state.botArmy.splice(index, 1)
       }
       this.setState({ botArmy: newArmy})
+  }
+
+  selectedBot = (bot) => {
+
+    if(!this.state.botArmy.includes(bot)) {
+      this.addBotToBotArmy (bot)
+    } else {
+      this.removeBotFromBotArmy(bot)
     }
   }
 
