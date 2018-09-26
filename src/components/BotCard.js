@@ -25,6 +25,7 @@ const BotCard = props => {
         className='ui card'
         key={bot.id}
         onClick={() => props.hasBotBeenAddedToArmy(props.bot) ? props.removeBotFromArmy(props.bot) : props.addBotToArmy(props.bot)}
+        onClick={() => props.selectBot(props.bot)}
       >
         <div className='image'>
           <img alt='oh no!' src={bot.avatar_url} />

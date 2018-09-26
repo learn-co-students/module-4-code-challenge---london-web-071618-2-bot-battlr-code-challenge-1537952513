@@ -1,13 +1,15 @@
 import React from "react";
 import BotCollection from './BotCollection'
 import YourBotArmy from './YourBotArmy'
+import BotSpecs from '../components/BotSpecs'
 
 
 class BotsPage extends React.Component {
 
   state = {
     bots: [],
-    botsInArmy: []
+    botsInArmy: [],
+    selectedBot: undefined
   }
 
   getBots = () => {
@@ -21,7 +23,6 @@ class BotsPage extends React.Component {
   componentDidMount = () => {
     this.getBots()
   }
-
 
   addBotToArmy = bot => {
     if (this.state.botsInArmy.includes(bot)) return;
@@ -39,24 +40,47 @@ class BotsPage extends React.Component {
 
   hasBotBeenAddedToArmy = bot => {
   return this.state.botsInArmy.includes(bot)
-}
+  }
 
+  selectBot = bot => {
+    this.setState({
+      selectedBot: bot
+    })
+  }
+
+  deselectBot = () =>{
+    this.setState({
+      selectedBot: undefined
+    })
+  }
 
   render() {
     return (
       <div>
-        <YourBotArmy
-          bots={this.state.botsInArmy}
-          addBotToArmy={this.addBotToArmy}
-          removeBotFromArmy={this.removeBotFromArmy}
-          hasBotBeenAddedToArmy={this.hasBotBeenAddedToArmy}
-        />
-        <BotCollection
+
+      <YourBotArmy
+        bots={this.state.botsInArmy}
+        addBotToArmy={this.addBotToArmy}
+        removeBotFromArmy={this.removeBotFromArmy}
+        hasBotBeenAddedToArmy={this.hasBotBeenAddedToArmy}
+      />
+
+      {
+        this.state.selectedBot ?
+          <BotSpecs bot={this.state.selectedBot}
+            deselectBot={this.deselectBot}
+            addBotToArmy={this.addBotToArmy}
+
+          />
+          :
+          < BotCollection
           bots={this.state.bots}
           addBotToArmy={this.addBotToArmy}
           removeBotFromArmy={this.removeBotFromArmy}
           hasBotBeenAddedToArmy={this.hasBotBeenAddedToArmy}
-        />
+          selectBot={this.selectBot}
+          />
+      }
 
       </div>
     );
