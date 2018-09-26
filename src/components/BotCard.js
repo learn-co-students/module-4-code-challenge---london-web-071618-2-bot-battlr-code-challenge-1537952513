@@ -1,21 +1,21 @@
-import React from 'react';
+import React from 'react'
+import BotSpecs from './BotSpecs'
 
 const BotCard = props => {
   const { bot } = props
-  // console.log(props)
 
   let botType
 
   switch (bot.bot_class) {
     case 'Assault':
       botType = <i className='icon military' />
-      break;
+      break
     case 'Defender':
       botType = <i className='icon shield' />
-      break;
+      break
     case 'Support':
       botType = <i className='icon ambulance' />
-      break;
+      break
     default:
       botType = <div />
   }
@@ -25,7 +25,7 @@ const BotCard = props => {
       <div
         className='ui card'
         key={bot.id}
-        onClick={() => props.enlistDelistBot(bot)}
+        onClick={() => props.detailView(bot)}
       >
         <div className='image'>
           <img alt='oh no!' src={bot.avatar_url} />
@@ -57,7 +57,6 @@ const BotCard = props => {
       </div>
     </div>
   )
-
-};
+}
 
 export default BotCard

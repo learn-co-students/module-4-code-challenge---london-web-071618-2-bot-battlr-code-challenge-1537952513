@@ -1,6 +1,7 @@
 import React from 'react'
 import BotCollection from './BotCollection'
 import YourBotArmy from './YourBotArmy'
+import BotSpecs from '../components/BotSpecs'
 
 class BotsPage extends React.Component {
   // start here with your code for step one
@@ -9,7 +10,9 @@ class BotsPage extends React.Component {
     super()
     this.state = {
       allBots: [],
-      yourBotArmy: []
+      yourBotArmy: [],
+      specView: false,
+      currentBot: []
     }
   }
 
@@ -21,7 +24,8 @@ class BotsPage extends React.Component {
 
   enlistBot = (selectedBot) => {
     if (!this.state.yourBotArmy.find(bot => bot === selectedBot)) {
-      this.setState({ yourBotArmy: [...this.state.yourBotArmy, selectedBot] })
+      this.setState({ yourBotArmy: [...this.state.yourBotArmy, selectedBot],
+        specView: !this.state.specView })
     }
   }
 
@@ -31,11 +35,29 @@ class BotsPage extends React.Component {
     }
   }
 
+  detailView = (bot) => {
+    this.setState({ 
+      specView: !this.state.specView,
+      currentBot: bot
+    })
+  }
+
+  seeAllBots = () => {
+    this.setState({ 
+      specView: !this.state.specView
+    })
+  }
+
   render () {
+
+    let view
+
+    view = this.state.specView ? <BotSpecs bot={this.state.currentBot} detailView={this.detailView} enlistBot={this.enlistBot} seeAllBots={this.seeAllBots}/> : <BotCollection allBots={this.state.allBots} enlistBot={this.enlistBot} detailView={this.detailView} />
+
     return (
       <div>
         <YourBotArmy yourBotArmy={this.state.yourBotArmy} delistBot={this.delistBot} />
-        <BotCollection allBots={this.state.allBots} enlistBot={this.enlistBot} />
+        {view}
       </div>
     )
   }

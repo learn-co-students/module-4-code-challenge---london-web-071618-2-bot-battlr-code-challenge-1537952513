@@ -12,3 +12,12 @@
 .ui.grid {
   padding: 0px 20px;
 }
+
+.centre {
+  text-align: centre;
+}
+
+.delistButton {
+  position: absolute;
+  top: 50%;
+}
